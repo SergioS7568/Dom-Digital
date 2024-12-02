@@ -4,7 +4,7 @@ import DomicilioDigitalJustLogo from "../../assets/images/DomicilioDigitalJustLo
 const Header = () => {
   return (
     <div>
-      <Grid container gap={1} alignContent="between">
+      <Grid container gap={1} className="items-center justify-items-end">
         <Grid item xs={6} xl={6}>
           <img src={DomicilioDigitalJustLogo}></img>
         </Grid>

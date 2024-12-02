@@ -4,7 +4,15 @@ import DomiciliosDigilatesView from "./DomiciliosDigilatesView";
 
 const RootingView = () => {
   return (
-    <div>
+    <div
+      className="bg-zinc-500   "
+      style={{
+        boxSizing: "border-box",
+        margin: "0",
+        padding: "0",
+        minHeight: "100vh",
+      }}
+    >
       <Header></Header>
       <DomiciliosDigilatesView></DomiciliosDigilatesView>
       <Footer></Footer>
