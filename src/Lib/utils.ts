@@ -5,6 +5,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+//se agrego Utils
+
 /**
  * Usage with template literals. To call the function, do not use parentheses.
  * @param strings -
