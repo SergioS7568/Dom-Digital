@@ -1,10 +1,11 @@
 import "./App.css";
-import DomiciliosDigitales from "./Components/DomiciliosDigitales/DomiciliosDigitales";
+
+import RootingView from "./View/RootingView";
 
 function App() {
   return (
     <>
-      <DomiciliosDigitales></DomiciliosDigitales>;
+      <RootingView></RootingView>;
     </>
   );
 }
