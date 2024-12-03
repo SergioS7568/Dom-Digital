@@ -23,39 +23,39 @@ const CardTopOptions = () => {
 
   return (
     <div>
-      <Grid container className="items-center pt-4">
-        <Grid item xs={6} xl={6}>
-          <Grid container className="items-center">
-            <Grid item xs={12} sm={6}>
+      <Grid container className="items-center pt-4  gap-1">
+        <Grid item xs={12} lg={3}>
+          <Grid container className="items-center  ">
+            <Grid item xs={12} lg={12}>
               <div></div>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} lg={12}>
               <div>
                 <p>Listado</p>
               </div>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} lg={12}>
               <div>
                 <button>hiddenButton</button>
               </div>
             </Grid>
-            <Grid item xs={12} sm={6}></Grid>
+            <Grid item xs={12} lg={12}></Grid>
           </Grid>
         </Grid>
-        <Grid item xs={2} xl={6}>
-          <p>Mostrar</p>
+        <Grid item xs={1} ls={1}></Grid>
+        <Grid item xs={1} ls={1}></Grid>
+        <Grid item xs={1} ls={1}></Grid>
+
+        <Grid item xs={2} xl={1}>
+          <p className="justify-self-end">Mostrar</p>
         </Grid>
-        <Grid item xs={2} xl={6}>
+        <Grid item xs={2} xl={1}>
           <div>
             <select
               id="showQuantityResults"
               name="showQuantityResults"
               onChange={OnValueSelected}
-              className="col-start-1 row-start-1 w-full appearance-none 
-              rounded-md py-1.5 pl-3 pr-7 text-base text-gray-500
-               placeholder:text-gray-400 focus:outline focus:outline-2 
-               focus:-outline-offset-2 focus:outline-indigo-600
-              outline outline-cyan-700 sm:text-sm/6 "
+              className="collapse collapse-arrow border-base-300 p-3 bg-base-500 border"
             >
               <option value={15}>15</option>
               <option value={25}>25</option>
@@ -63,11 +63,26 @@ const CardTopOptions = () => {
             </select>
           </div>
         </Grid>
-        <Grid item xs={2} xl={6}>
-          <div>
-            <button onClick={OnPressShowPopupFilter}>Buscar</button>
-          </div>
+        <Grid item xs={2} xl={1}>
+          <button className="btn" onClick={OnPressShowPopupFilter}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+              />
+            </svg>
+            Buscar
+          </button>
         </Grid>
+        <Grid item xs={3} ls={1}></Grid>
       </Grid>
 
       <TableDomiciliosDigitales></TableDomiciliosDigitales>
