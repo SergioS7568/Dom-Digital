@@ -1,3 +1,10 @@
+/* The modal background */
 .CardFilter-PopUp-Background {
-  background-color: aliceblue;
+  background-color: white; /* Set the background to white */
+  padding: 20px; /* Add some padding for better spacing */
+  border-radius: 8px; /* Optional: rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+  width: 80%; /* Adjust width as needed */
+  max-width: 600px; /* Max width to prevent the modal from being too wide */
+  box-sizing: border-box; /* Ensure padding is inside the width */
 }

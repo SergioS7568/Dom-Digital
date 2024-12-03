@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Grid from "../Grid/Grid";
 import CardFilter_PopUp from "./CardFilter_PopUp";
 import "./CardTopOptions.css";
@@ -6,6 +6,12 @@ import TableDomiciliosDigitales from "../Table/TableDomiciliosDigitales";
 
 const CardTopOptions = () => {
   const [showPopupFilter, setShowPopupFilter] = useState(false);
+
+  const [filterData, setFilterData] = useState({
+    surnamePerson: "",
+    namePerson: "",
+    occupationType: "",
+  });
 
   const OnValueSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
@@ -20,6 +26,21 @@ const CardTopOptions = () => {
   const OnClosePopupFilter = () => {
     setShowPopupFilter(false);
   };
+
+  const OnSearchFilter = (newFilterData: {
+    surnamePerson: string;
+    namePerson: string;
+    occupationType: string;
+  }) => {
+    setFilterData(newFilterData);
+    console.log("Filtering data, it should look like this: ", newFilterData);
+    OnClosePopupFilter();
+    console.log(filterData);
+  };
+
+  useEffect(() => {
+    console.log("running until filter data is shown: ", filterData);
+  }, [filterData]);
 
   return (
     <div>
@@ -36,7 +57,15 @@ const CardTopOptions = () => {
             </Grid>
             <Grid item xs={12} lg={12}>
               <div>
-                <button>hiddenButton</button>
+                <button className="btn btn-square ">
+                  Nombre: {filterData.namePerson}
+                </button>
+                <button className="btn btn-square">
+                  Apellido: {filterData.surnamePerson}
+                </button>
+                <button className="btn btn-square">
+                  Perfil: {filterData.occupationType}
+                </button>
               </div>
             </Grid>
             <Grid item xs={12} lg={12}></Grid>
@@ -50,12 +79,12 @@ const CardTopOptions = () => {
           <p className="justify-self-end">Mostrar</p>
         </Grid>
         <Grid item xs={2} xl={1}>
-          <div>
+          <div tabIndex={0} className="collapse border-cyan-700">
             <select
               id="showQuantityResults"
               name="showQuantityResults"
               onChange={OnValueSelected}
-              className="collapse collapse-arrow border-base-300 p-3 bg-base-500 border"
+              className="select w-20 h-14"
             >
               <option value={15}>15</option>
               <option value={25}>25</option>
@@ -89,7 +118,10 @@ const CardTopOptions = () => {
 
       {showPopupFilter && (
         <div className="popup-filter-overlay">
-          <CardFilter_PopUp closePopup={OnClosePopupFilter} />
+          <CardFilter_PopUp
+            closePopup={OnClosePopupFilter}
+            onSearch={OnSearchFilter}
+          />
         </div>
       )}
     </div>
