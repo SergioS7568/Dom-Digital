@@ -4,9 +4,9 @@ import { version } from "../../../package.json";
 const Footer = () => {
   const today = new Date();
   const year = today.getFullYear();
-  console.log(year);
+  //console.log(year);
 
-  console.log(version);
+  // console.log(version);
   return (
     <div>
       <Grid container>

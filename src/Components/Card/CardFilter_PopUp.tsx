@@ -1,34 +1,64 @@
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+
 import "./CardFilter_PopUp.css";
 
 import Grid from "../Grid/Grid";
-import { useState } from "react";
+import { filterByData } from "../api/Api";
 
-const CardFilter_PopUp = ({
-  closePopup,
-  onSearch,
-}: {
-  closePopup: () => void;
-  onSearch: (filterData: {
-    surnamePerson: string;
-    namePerson: string;
-    occupationType: string;
-  }) => void;
-}) => {
-  const [surnamePerson, setSurnamePerson] = useState("");
-  const [namePerson, setNamePerson] = useState("");
-  const [occupationType, setOcupationType] = useState("");
+type Props = {
+  setFilters: React.Dispatch<React.SetStateAction<filterByData>>;
+  filters: filterByData;
+  setIndex: React.Dispatch<React.SetStateAction<number>>;
+};
+
+// const CardFilter_PopUp = ({
+//   closePopup,
+//   onSearch,
+// }: {
+//   closePopup: () => void;
+//   // onSearch: (filterData: {
+//   //   surnamePerson: string;
+//   //   namePerson: string;
+//   //   occupationType: string;
+//   // }) => void;
+//   onSearch: (props: Props) => void;
+// }) => {
+const CardFilter_PopUp = (props: Props) => {
+  const { setFilters, filters, setIndex } = props;
+
+  // const {
+  //   register,
+  //   reset,
+  //   setValue,
+  //   handleSubmit: handleSubitRHF,
+  // } = useForm<FilterTypeApi>;
+
+  // const [surnamePerson, setSurnamePerson] = useState("");
+  // const [namePerson, setNamePerson] = useState("");
+  // const [occupationType, setOcupationType] = useState("");
+
+  const [surnamePerson, setSurnamePerson] = useState(filters.lastname);
+  const [namePerson, setNamePerson] = useState(filters.name);
+  const [occupationType, setOccupationType] = useState(filters.profile);
 
   const handleSearch = () => {
-    const newFilterData = { surnamePerson, namePerson, occupationType };
-    //console.log(newFilterData);
-    onSearch(newFilterData);
+    setIndex(0); // Reset the index
+    const newFilterData: filterByData = {
+      lastname: surnamePerson,
+      name: namePerson,
+      profile: occupationType,
+    };
+    setFilters(newFilterData); // Update the filter data
   };
 
   const cleanInputs = () => {
     setSurnamePerson("");
     setNamePerson("");
-    setOcupationType("");
+    setOccupationType("");
   };
+
+  const ClosesPopUp = () => {};
 
   return (
     <div className="CardFilter-PopUp-Background items-center">
@@ -65,7 +95,7 @@ const CardFilter_PopUp = ({
             placeholder="Perfil"
             type="text"
             value={occupationType}
-            onChange={(e) => setOcupationType(e.target.value)}
+            onChange={(e) => setOccupationType(e.target.value)}
           />
         </Grid>
         <Grid item xs={3} xl={3}>
@@ -74,7 +104,7 @@ const CardFilter_PopUp = ({
           </button>
         </Grid>
         <Grid item xs={3} xl={3}>
-          <button className="toggle-button" onClick={closePopup}>
+          <button className="toggle-button" onClick={ClosesPopUp}>
             CANCELAR
           </button>
         </Grid>
