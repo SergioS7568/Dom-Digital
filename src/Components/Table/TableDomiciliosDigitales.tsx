@@ -1,6 +1,8 @@
 import { useQuery } from "react-query";
 
 import { filterByData, getApiFn } from "../api/Api";
+import BottomButtonsPages from "../BottomButtonsPages/BottomButtonsPages";
+import { useState } from "react";
 
 type Props = {
   itemsPerPage: number;
@@ -10,13 +12,14 @@ type Props = {
 
 const TableDomiciliosDigitales = (props: Props) => {
   const { itemsPerPage, filterData, index } = props;
+  const [currentIndex, setCurrentIndex] = useState(index);
 
   const {
     data: Api,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["Api", itemsPerPage, filterData, index],
+    queryKey: ["Api", itemsPerPage, filterData, currentIndex],
     queryFn: (context) => {
       const queryKey = context.queryKey as [
         string,
@@ -27,6 +30,13 @@ const TableDomiciliosDigitales = (props: Props) => {
       return getApiFn(queryKey);
     },
   });
+
+  const onFowardHandler = () => {
+    setCurrentIndex(currentIndex + 1);
+  };
+  const onMovingIndexPosition = (currentIndex: number) => {
+    setCurrentIndex(currentIndex);
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -54,6 +64,16 @@ const TableDomiciliosDigitales = (props: Props) => {
           })}
         </tbody>
       </table>
+
+      <BottomButtonsPages
+        index={Api?.pagesInfo.pageNumber ?? 0}
+        totalPages={Api?.pagesInfo.totalPages ?? 0}
+        pageSize={Api?.pagesInfo.pageSize ?? 0}
+        numberElements={Api?.pagesInfo.numberOfElements ?? 0}
+        totalElements={Api?.pagesInfo.totalElements ?? 0}
+        onFoward={onFowardHandler}
+        onMovingIndexPosition={onMovingIndexPosition}
+      ></BottomButtonsPages>
     </div>
   );
 };

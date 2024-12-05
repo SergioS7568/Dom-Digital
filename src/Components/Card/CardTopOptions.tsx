@@ -69,6 +69,28 @@ const CardTopOptions = () => {
   //   console.log("running until filter data is shown: ", filterData);
   // }, [filterData]);
 
+  const handleEliminationNameButtonClick = () => {
+    setFilterData({
+      lastname: filterData.lastname,
+      name: "",
+      profile: filterData.profile,
+    });
+  };
+  const handleEliminationLastNameButtonClick = () => {
+    setFilterData({
+      lastname: "",
+      name: filterData.name,
+      profile: filterData.profile,
+    });
+  };
+  const handleEliminationProfileButtonClick = () => {
+    setFilterData({
+      lastname: filterData.lastname,
+      name: filterData.name,
+      profile: "",
+    });
+  };
+
   return (
     <div>
       {isLoading ? <p>No se cargo nada</p> : <p>Datos cargados</p>}
@@ -87,15 +109,36 @@ const CardTopOptions = () => {
             </Grid>
             <Grid item xs={12} lg={12}>
               <div>
-                <button className="btn btn-square ">
-                  Nombre: {filterData.name}
-                </button>
-                <button className="btn btn-square">
-                  Apellido: {filterData.lastname}
-                </button>
-                <button className="btn btn-square">
-                  Perfil: {filterData.profile}
-                </button>
+                {filterData.name ? (
+                  <button
+                    className="btn btn-square "
+                    onClick={handleEliminationNameButtonClick}
+                  >
+                    {filterData.name}
+                  </button>
+                ) : (
+                  <></>
+                )}
+                {filterData.lastname ? (
+                  <button
+                    className="btn btn-square"
+                    onClick={handleEliminationLastNameButtonClick}
+                  >
+                    {filterData.lastname}
+                  </button>
+                ) : (
+                  <></>
+                )}
+                {filterData.profile ? (
+                  <button
+                    className="btn btn-square"
+                    onClick={handleEliminationProfileButtonClick}
+                  >
+                    {filterData.profile}
+                  </button>
+                ) : (
+                  <></>
+                )}
               </div>
             </Grid>
             <Grid item xs={12} lg={12}></Grid>
@@ -156,6 +199,7 @@ const CardTopOptions = () => {
             setFilters={OnSearchFilter}
             filters={filterData} // Pass the current filter data to the popup
             setIndex={() => {}}
+            OnClosePopupFilter={OnClosePopupFilter}
           />
         </div>
       )}

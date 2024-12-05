@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+
 import "./CardFilter_PopUp.css";
 
 import Grid from "../Grid/Grid";
@@ -10,6 +13,7 @@ type Props = {
   setFilters: React.Dispatch<React.SetStateAction<filterByData>>;
   filters: filterByData;
   setIndex: React.Dispatch<React.SetStateAction<number>>;
+  OnClosePopupFilter: () => void;
 };
 
 // const CardFilter_PopUp = ({
@@ -24,8 +28,8 @@ type Props = {
 //   // }) => void;
 //   onSearch: (props: Props) => void;
 // }) => {
-const CardFilter_PopUp = (props: Props) => {
-  const { setFilters, filters, setIndex } = props;
+export const CardFilter_PopUp = (props: Props) => {
+  const { setFilters, filters, setIndex, OnClosePopupFilter } = props;
 
   // const {
   //   register,
@@ -37,10 +41,19 @@ const CardFilter_PopUp = (props: Props) => {
   // const [surnamePerson, setSurnamePerson] = useState("");
   // const [namePerson, setNamePerson] = useState("");
   // const [occupationType, setOcupationType] = useState("");
-
+  const [isOpen, setIsOpen] = useState(true);
   const [surnamePerson, setSurnamePerson] = useState(filters.lastname);
   const [namePerson, setNamePerson] = useState(filters.name);
+
   const [occupationType, setOccupationType] = useState(filters.profile);
+
+  const [inputValue, setInputValue] = React.useState("");
+  const [value, setValue] = React.useState<boolean>(true);
+  const options = [
+    { label: "ABOGADO/PROCURADOR" },
+    { label: "ENTIDAD" },
+    { label: "PERITO/OTRO" },
+  ];
 
   const handleSearch = () => {
     setIndex(0); // Reset the index
@@ -58,7 +71,9 @@ const CardFilter_PopUp = (props: Props) => {
     setOccupationType("");
   };
 
-  const ClosesPopUp = () => {};
+  const ClosesPopUp = () => {
+    OnClosePopupFilter();
+  };
 
   return (
     <div className="CardFilter-PopUp-Background items-center">
@@ -90,12 +105,16 @@ const CardFilter_PopUp = (props: Props) => {
           />
         </Grid>
         <Grid item xs={12} xl={12}>
-          <input
-            className="text-lg font-bold"
-            placeholder="Perfil"
-            type="text"
-            value={occupationType}
-            onChange={(e) => setOccupationType(e.target.value)}
+          <Autocomplete
+            inputValue={occupationType}
+            disablePortal
+            options={options}
+            sx={{ width: 300 }}
+            getOptionLabel={(option) => option.label} // Display the label of the options
+            renderInput={(params) => <TextField {...params} label="Perfil" />}
+            onChange={(event, newValue) => {
+              setOccupationType(newValue ? newValue.label : ""); // Set the occupationType to the selected label
+            }}
           />
         </Grid>
         <Grid item xs={3} xl={3}>

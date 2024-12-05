@@ -93,6 +93,7 @@ export type RequiredResponse = {
     totalPages: number;
     numberOfElements: number;
     pageSize: number;
+    totalElements: number;
   };
 };
 
@@ -112,6 +113,7 @@ export const FilterTypeApi = (data: PageData): RequiredResponse => {
       pageSize: data.pageable.pageSize,
       totalPages: data.totalPages,
       numberOfElements: data.numberOfElements,
+      totalElements: data.totalElements,
     },
   };
 };
