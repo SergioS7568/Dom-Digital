@@ -1,23 +1,31 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+
 import Grid from "../Grid/Grid";
 import CardFilter_PopUp from "./CardFilter_PopUp";
-import "./CardTopOptions.css";
 import TableDomiciliosDigitales from "../Table/TableDomiciliosDigitales";
+import { getApiFn, filterByData } from "../api/Api";
 
-const CardTopOptions = () => {
+import "./CardTopOptions.css";
+
+export const CardTopOptions = () => {
   const [showPopupFilter, setShowPopupFilter] = useState(false);
 
-  const [filterData, setFilterData] = useState({
-    surnamePerson: "",
-    namePerson: "",
-    occupationType: "",
+  const [filterData, setFilterData] = useState<filterByData>({
+    lastname: "",
+    name: "",
+    profile: "",
   });
+
+  const [itemsPerPage, setItemsPerPage] = useState<number>(15);
 
   const OnValueSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
 
-    const QuantityResults = event.target.value;
-    console.log(QuantityResults);
+    const QuantityResults = Number(event.target.value);
+    setItemsPerPage(QuantityResults);
+    console.log("numero    ", QuantityResults);
+    console.log("numero  ", itemsPerPage);
   };
 
   const OnPressShowPopupFilter = () => {
@@ -26,24 +34,69 @@ const CardTopOptions = () => {
   const OnClosePopupFilter = () => {
     setShowPopupFilter(false);
   };
+  const pageNumber = 0;
 
-  const OnSearchFilter = (newFilterData: {
-    surnamePerson: string;
-    namePerson: string;
-    occupationType: string;
-  }) => {
-    setFilterData(newFilterData);
-    console.log("Filtering data, it should look like this: ", newFilterData);
-    OnClosePopupFilter();
-    console.log(filterData);
+  const {
+    data: Api,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["Api", itemsPerPage, pageNumber],
+    queryFn: (context) => {
+      const queryKey = context.queryKey as [string, number];
+      return getApiFn(queryKey);
+    },
+  });
+
+  // const OnSearchFilter = (newFilterData: {
+  //   surnamePerson: string;
+  //   namePerson: string;
+  //   occupationType: string;
+  // }) => {
+  //   setFilterData(newFilterData);
+  //   console.log("Filtering data, it should look like this: ", newFilterData);
+  //   OnClosePopupFilter();
+  //   console.log(filterData);
+  // };
+
+  const OnSearchFilter = (
+    newFilterData: filterByData | ((prev: filterByData) => filterByData)
+  ) => {
+    setFilterData(newFilterData); // Update filter data state
+    OnClosePopupFilter(); // Close the popup
   };
 
-  useEffect(() => {
-    console.log("running until filter data is shown: ", filterData);
-  }, [filterData]);
+  // useEffect(() => {
+  //   console.log("running until filter data is shown: ", filterData);
+  // }, [filterData]);
+
+  const handleEliminationNameButtonClick = () => {
+    setFilterData({
+      lastname: filterData.lastname,
+      name: "",
+      profile: filterData.profile,
+    });
+  };
+  const handleEliminationLastNameButtonClick = () => {
+    setFilterData({
+      lastname: "",
+      name: filterData.name,
+      profile: filterData.profile,
+    });
+  };
+  const handleEliminationProfileButtonClick = () => {
+    setFilterData({
+      lastname: filterData.lastname,
+      name: filterData.name,
+      profile: "",
+    });
+  };
 
   return (
     <div>
+      {isLoading ? <p>No se cargo nada</p> : <p>Datos cargados</p>}
+
+      {isError ? <div>ERROR</div> : <div>Its working!</div>}
       <Grid container className="items-center pt-4  gap-1">
         <Grid item xs={12} lg={3}>
           <Grid container className="items-center  ">
@@ -52,20 +105,41 @@ const CardTopOptions = () => {
             </Grid>
             <Grid item xs={12} lg={12}>
               <div>
-                <p>Listado</p>
+                <p>Listado </p>
               </div>
             </Grid>
             <Grid item xs={12} lg={12}>
               <div>
-                <button className="btn btn-square ">
-                  Nombre: {filterData.namePerson}
-                </button>
-                <button className="btn btn-square">
-                  Apellido: {filterData.surnamePerson}
-                </button>
-                <button className="btn btn-square">
-                  Perfil: {filterData.occupationType}
-                </button>
+                {filterData.name ? (
+                  <button
+                    className="btn btn-square "
+                    onClick={handleEliminationNameButtonClick}
+                  >
+                    {filterData.name}
+                  </button>
+                ) : (
+                  <></>
+                )}
+                {filterData.lastname ? (
+                  <button
+                    className="btn btn-square"
+                    onClick={handleEliminationLastNameButtonClick}
+                  >
+                    {filterData.lastname}
+                  </button>
+                ) : (
+                  <></>
+                )}
+                {filterData.profile ? (
+                  <button
+                    className="btn btn-square"
+                    onClick={handleEliminationProfileButtonClick}
+                  >
+                    {filterData.profile}
+                  </button>
+                ) : (
+                  <></>
+                )}
               </div>
             </Grid>
             <Grid item xs={12} lg={12}></Grid>
@@ -114,13 +188,19 @@ const CardTopOptions = () => {
         <Grid item xs={3} ls={1}></Grid>
       </Grid>
 
-      <TableDomiciliosDigitales></TableDomiciliosDigitales>
+      <TableDomiciliosDigitales
+        filterData={filterData}
+        itemsPerPage={itemsPerPage}
+        index={0}
+      ></TableDomiciliosDigitales>
 
       {showPopupFilter && (
         <div className="popup-filter-overlay">
           <CardFilter_PopUp
-            closePopup={OnClosePopupFilter}
-            onSearch={OnSearchFilter}
+            setFilters={OnSearchFilter}
+            filters={filterData} // Pass the current filter data to the popup
+            setIndex={() => {}}
+            OnClosePopupFilter={OnClosePopupFilter}
           />
         </div>
       )}
