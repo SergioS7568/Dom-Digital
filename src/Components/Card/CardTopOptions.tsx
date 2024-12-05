@@ -34,13 +34,14 @@ export const CardTopOptions = () => {
   const OnClosePopupFilter = () => {
     setShowPopupFilter(false);
   };
+  const pageNumber = 0;
 
   const {
     data: Api,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["Api", itemsPerPage],
+    queryKey: ["Api", itemsPerPage, pageNumber],
     queryFn: (context) => {
       const queryKey = context.queryKey as [string, number];
       return getApiFn(queryKey);

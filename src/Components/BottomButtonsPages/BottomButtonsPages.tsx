@@ -36,7 +36,7 @@ export const BottomButtonsPages = (props: Props) => {
           count={totalPages - 1}
           defaultPage={index}
           boundaryCount={2}
-          page={page}
+          page={index}
           onChange={handleChange}
         />
       </Stack>

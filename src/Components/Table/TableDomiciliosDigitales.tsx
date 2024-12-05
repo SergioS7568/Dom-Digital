@@ -14,6 +14,10 @@ const TableDomiciliosDigitales = (props: Props) => {
   const { itemsPerPage, filterData, index } = props;
   const [currentIndex, setCurrentIndex] = useState(index);
 
+  useEffect(() => {
+    setCurrentIndex(index);
+  }, [props]);
+
   const {
     data: Api,
     isLoading,
