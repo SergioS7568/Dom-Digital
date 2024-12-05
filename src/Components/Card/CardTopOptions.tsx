@@ -8,7 +8,7 @@ import { getApiFn, filterByData } from "../api/Api";
 
 import "./CardTopOptions.css";
 
-const CardTopOptions = () => {
+export const CardTopOptions = () => {
   const [showPopupFilter, setShowPopupFilter] = useState(false);
 
   const [filterData, setFilterData] = useState<filterByData>({
@@ -16,6 +16,8 @@ const CardTopOptions = () => {
     name: "",
     profile: "",
   });
+
+  const [itemsPerPage, setItemsPerPage] = useState<number>(15);
 
   const OnValueSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
@@ -32,8 +34,6 @@ const CardTopOptions = () => {
   const OnClosePopupFilter = () => {
     setShowPopupFilter(false);
   };
-
-  const [itemsPerPage, setItemsPerPage] = useState<number>(15);
 
   const {
     data: Api,
@@ -104,7 +104,7 @@ const CardTopOptions = () => {
             </Grid>
             <Grid item xs={12} lg={12}>
               <div>
-                <p>Listado</p>
+                <p>Listado </p>
               </div>
             </Grid>
             <Grid item xs={12} lg={12}>

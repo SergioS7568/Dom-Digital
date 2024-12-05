@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 
 import { filterByData, getApiFn } from "../api/Api";
 import BottomButtonsPages from "../BottomButtonsPages/BottomButtonsPages";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   itemsPerPage: number;
@@ -53,7 +53,7 @@ const TableDomiciliosDigitales = (props: Props) => {
           {Api?.content.map((ApiResult) => {
             return (
               <tr key={ApiResult.id}>
-                <td> </td>
+                <td> {currentIndex}</td>
                 <td> {ApiResult.lastname}</td>
 
                 <td> {ApiResult.name}</td>

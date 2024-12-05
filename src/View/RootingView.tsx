@@ -1,8 +1,15 @@
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+
 import Footer from "../Common/Footer/Footer";
 import Header from "../Common/Header/Header";
 import DomiciliosDigilatesView from "./DomiciliosDigilatesView";
 
 const RootingView = () => {
+  const onClickMoveTowardsTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   return (
     <div
       className="bg-zinc-500   "
@@ -16,8 +23,13 @@ const RootingView = () => {
       <Header></Header>
       <DomiciliosDigilatesView></DomiciliosDigilatesView>
       <Footer></Footer>
-
-      <div></div>
+      <Stack>
+        <Button
+          variant="contained"
+          startIcon={<ArrowUpwardIcon />}
+          onClick={onClickMoveTowardsTop}
+        ></Button>
+      </Stack>
     </div>
   );
 };
