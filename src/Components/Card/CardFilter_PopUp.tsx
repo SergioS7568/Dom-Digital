@@ -78,17 +78,17 @@ export const CardFilter_PopUp = (props: Props) => {
 
   return (
     <div
-      className="CardFilter-PopUp-Background items-start
-     bg-bgCustomGray dark:bg-bgCustomDark dark"
+      className="CardFilter-PopUp-Background 
+     bg-bgCustomGray dark:bg-bgCustomDark  justify-center items-center self-center"
     >
       <Grid container className="justify-items-start m-8" gap={2}>
         <Grid item xs={12} xl={12}>
-          <h2 className="text-2xl font-bold text-black dark:text-gray-400">
+          <h2 className="text-2xl font-bold text-black dark:text-gray-300">
             Filtrar resultados
           </h2>
         </Grid>
         <Grid item xs={12} xl={12}>
-          <p className="font-medium py-4  text-gray-700 dark:text-gray-400">
+          <p className="font-medium py-4  text-gray-700 dark:text-textCustomDarkFriendlyWhite">
             Aquí puede filtrar según uno o varios de los siguientes campos:
           </p>
         </Grid>

@@ -52,7 +52,7 @@ const TableDomiciliosDigitales = (props: Props) => {
   };
 
   return (
-    <div className="overflow-x-auto ">
+    <div className="overflow-x-auto  mt-4">
       <TableContainer className=" hidden lg:block">
         <Table className="table bg-white dark:bg-btnCustomTableColor border-#9E9E9E">
           <TableHead>
