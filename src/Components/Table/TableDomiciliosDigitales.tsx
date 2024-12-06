@@ -3,6 +3,15 @@ import { useQuery } from "react-query";
 import { filterByData, getApiFn } from "../api/Api";
 import BottomButtonsPages from "../BottomButtonsPages/BottomButtonsPages";
 import { useEffect, useState } from "react";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableContainer,
+} from "@mui/material";
+import CardsDomicilioDigitales from "./CardsDomicilioDigitales";
 
 type Props = {
   itemsPerPage: number;
@@ -43,31 +52,65 @@ const TableDomiciliosDigitales = (props: Props) => {
   };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <td>Apellido</td>
-            <td>Nombre</td>
-            <td>Perfil</td>
-          </tr>
-        </thead>
-        <tbody>
-          {Api?.content.map((ApiResult) => {
-            return (
-              <tr key={ApiResult.id}>
-                <td> {currentIndex}</td>
-                <td> {ApiResult.lastname}</td>
+    <div className="overflow-x-auto ">
+      <TableContainer className=" hidden lg:block">
+        <Table className="table bg-white dark:bg-btnCustomTableColor border-#9E9E9E">
+          <TableHead>
+            <TableRow>
+              <TableCell> </TableCell>
+              <TableCell>
+                <p className="text-lg font-bold  text-black dark:text-white">
+                  Apellido
+                </p>
+              </TableCell>
+              <TableCell>
+                <p className="text-lg font-bold  text-black dark:text-white">
+                  Nombre
+                </p>
+              </TableCell>
+              <TableCell>
+                <p className="text-lg font-bold  text-black dark:text-white">
+                  Perfil
+                </p>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {Api?.content.map((ApiResult) => {
+              return (
+                <TableRow key={ApiResult.id}>
+                  <TableCell> </TableCell>
+                  <TableCell>
+                    <p className="text-lg font-medium  text-black dark:text-white">
+                      {ApiResult.lastname}
+                    </p>
+                  </TableCell>
 
-                <td> {ApiResult.name}</td>
+                  <TableCell>
+                    <p className="text-lg font-medium  text-black dark:text-white">
+                      {ApiResult.name}
+                    </p>
+                  </TableCell>
 
-                <td> {ApiResult.profile.name}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                  <TableCell>
+                    <p className="text-lg font-medium  text-black dark:text-white">
+                      {ApiResult.profile.name}
+                    </p>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {Api?.content.map((ApiResult) => {
+        return (
+          <CardsDomicilioDigitales
+            ApiResult={ApiResult}
+            key={ApiResult.id}
+          ></CardsDomicilioDigitales>
+        );
+      })}
 
       <BottomButtonsPages
         index={Api?.pagesInfo.pageNumber ?? 0}

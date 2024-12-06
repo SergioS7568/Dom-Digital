@@ -30,19 +30,45 @@ export const BottomButtonsPages = (props: Props) => {
   };
 
   return (
-    <div>
+    <div className=" justify-items-center mt-6  mb-5">
       <Stack>
         <Pagination
+          className="text-lg font-medium "
+          sx={{
+            "& .MuiPaginationItem-root": {
+              color: "black",
+              fontSize: "1.5rem", // Adjust the color for the pagination items
+            },
+            "& .MuiPaginationItem-ellipsis": {
+              color: "black",
+              fontSize: "1.5rem", // Adjust the color for the ellipsis (...)
+            },
+            "& .MuiPaginationItem-page.Mui-selected": {
+              backgroundColor: "gray", // Change the background of selected page
+              color: "white",
+              fontSize: "2rem", // Change the text color of selected page
+            },
+            "& .MuiPaginationItem-root:hover": {
+              backgroundColor: "gray",
+              fontSize: "2rem", // Hover effect for pages
+            },
+          }}
+          variant="outlined"
+          color="standard"
           count={totalPages - 1}
           defaultPage={index}
           boundaryCount={2}
           page={index}
           onChange={handleChange}
+          showFirstButton
+          showLastButton
         />
       </Stack>
 
       <div>
-        Mostrando {numberElements} entradas de {totalElements}
+        <p className="text-lg font-medium  text-black dark:text-white border-black dark:border-white mb-5 mt-4">
+          Mostrando {numberElements} entradas de {totalElements}
+        </p>
       </div>
     </div>
   );

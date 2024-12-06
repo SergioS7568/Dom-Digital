@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import Button from "@mui/material/Button";
+import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
 
 import "./CardFilter_PopUp.css";
 
@@ -76,40 +77,89 @@ export const CardFilter_PopUp = (props: Props) => {
   };
 
   return (
-    <div className="CardFilter-PopUp-Background items-center">
-      <Grid container className="justify-items-center">
+    <div
+      className="CardFilter-PopUp-Background items-start
+     bg-bgCustomGray dark:bg-bgCustomDark dark"
+    >
+      <Grid container className="justify-items-start m-8" gap={2}>
         <Grid item xs={12} xl={12}>
-          <h2 className="font-bold text-lg">Filtrar resultados</h2>
+          <h2 className="text-2xl font-bold text-black dark:text-gray-400">
+            Filtrar resultados
+          </h2>
         </Grid>
         <Grid item xs={12} xl={12}>
-          <p className="py-4">
+          <p className="font-medium py-4  text-gray-700 dark:text-gray-400">
             Aquí puede filtrar según uno o varios de los siguientes campos:
           </p>
         </Grid>
-        <Grid item xs={12} xl={12}>
-          <input
-            className="text-lg font-bold"
-            placeholder="Apellido"
+        <Grid item xs={12} xl={12} className="w-full">
+          <TextField
+            className="text-lg font-bold w-full text-gray-600 dark:text-textCustomDarkFriendlyWhite"
+            sx={{
+              fontSize: "1.125rem",
+              fontWeight: "bold",
+              color: "gray",
+              "& .MuiInputBase-input": {
+                color: "#9E9E9E", // Light mode text color
+              },
+              "& .MuiInputLabel-root": { color: "#9E9E9E" }, // Customize label color
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": { borderColor: "#9E9E9E" }, // Customize border color
+                "&:hover fieldset": { borderColor: "#9E9E9E" }, // Hover border color
+              },
+            }}
+            label="Apellido"
+            variant="outlined"
             type="text"
+            fullWidth
             value={surnamePerson}
             onChange={(e) => setSurnamePerson(e.target.value)}
           />
         </Grid>
-        <Grid item xs={12} xl={12}>
-          <input
-            className="text-lg font-bold"
-            placeholder="Nombre"
+        <Grid item xs={12} xl={12} className="w-full">
+          <TextField
+            className="text-lg font-bold text-gray-600 dark:text-textCustomDarkFriendlyWhite"
+            sx={{
+              fontSize: "1.125rem",
+              fontWeight: "bold",
+              color: "gray",
+              "& .MuiInputBase-input": {
+                color: "#9E9E9E", // Light mode text color
+              },
+              "& .MuiInputLabel-root": { color: "#9E9E9E" }, // Customize label color
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": { borderColor: "#9E9E9E" }, // Customize border color
+                "&:hover fieldset": { borderColor: "#9E9E9E" }, // Hover border color
+              },
+            }}
+            label="Nombre"
+            variant="outlined"
             type="text"
             value={namePerson}
+            fullWidth
             onChange={(e) => setNamePerson(e.target.value)}
           />
         </Grid>
-        <Grid item xs={12} xl={12}>
+        <Grid item xs={12} xl={12} className="w-full">
           <Autocomplete
+            className="text-lg font-bold text-gray-600 dark:text-textCustomDarkFriendlyWhite "
+            sx={{
+              fontSize: "1.125rem",
+              fontWeight: "bold",
+              color: "gray",
+              "& .MuiInputBase-input": {
+                color: "#9E9E9E", // Light mode text color
+              },
+              "& .MuiInputLabel-root": { color: "#9E9E9E" }, // Customize label color
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": { borderColor: "#9E9E9E" }, // Customize border color
+                "&:hover fieldset": { borderColor: "#9E9E9E" }, // Hover border color
+              },
+            }}
             inputValue={occupationType}
             disablePortal
             options={options}
-            sx={{ width: 300 }}
+            fullWidth
             getOptionLabel={(option) => option.label} // Display the label of the options
             renderInput={(params) => <TextField {...params} label="Perfil" />}
             onChange={(event, newValue) => {
@@ -117,20 +167,56 @@ export const CardFilter_PopUp = (props: Props) => {
             }}
           />
         </Grid>
-        <Grid item xs={3} xl={3}>
-          <button className="btn" onClick={cleanInputs}>
-            LIMPIAR
-          </button>
+        <Grid item xs={12} sm={3} md={6} className="justify-self-center">
+          <Button
+            className=" text-sm "
+            variant="text"
+            sx={{
+              borderColor: "rgb(156 163 175)",
+              "&:hover": {
+                borderColor: "rgb(63, 117, 168)", // Optional: Change the border color on hover
+              },
+            }}
+            endIcon={
+              <DeleteOutlineSharpIcon sx={{ color: "rgb(156 163 175)" }} />
+            }
+            onClick={cleanInputs}
+          >
+            <p className="text-lg font-semibold text-gray-600 dark:text-gray-400">
+              LIMPIAR
+            </p>
+          </Button>
         </Grid>
-        <Grid item xs={3} xl={3}>
-          <button className="toggle-button" onClick={ClosesPopUp}>
-            CANCELAR
-          </button>
-        </Grid>
-        <Grid item xs={3} xl={3}>
-          <button className="btn" onClick={handleSearch}>
-            BUSCAR
-          </button>
+        <Grid item xs={12} sm={6} md={6} className="justify-self-center">
+          <Button
+            className=" text-sm"
+            variant="text"
+            sx={{
+              borderColor: "rgb(156 163 175)",
+              "&:hover": {
+                borderColor: "rgb(63, 117, 168)", // Optional: Change the border color on hover
+              },
+            }}
+            onClick={ClosesPopUp}
+          >
+            <p className="text-lg font-semibold text-red-600">CANCELAR</p>
+          </Button>
+
+          <Button
+            className=" text-sm"
+            variant="text"
+            sx={{
+              borderColor: "rgb(156 163 175)",
+              "&:hover": {
+                borderColor: "rgb(63, 117, 168)", // Optional: Change the border color on hover
+              },
+            }}
+            onClick={handleSearch}
+          >
+            <p className="text-lg font-semibold text-btnCustomBackgroundColor">
+              BUSCAR
+            </p>
+          </Button>
         </Grid>
       </Grid>
     </div>

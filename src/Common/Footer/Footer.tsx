@@ -8,13 +8,11 @@ const Footer = () => {
 
   // console.log(version);
   return (
-    <div>
-      <Grid container>
-        <Grid item xs={12} xl={12}>
-          <p>@{year} - Poder Judicial de Tucumán - Dirección de Sistemas</p>
-          <p> v{version}</p>
-        </Grid>
-      </Grid>
+    <div className="justify-items-center ">
+      <p className="   text-textCustomNaturalBlack  dark:text-white text-center ">
+        @{year} - Poder Judicial de Tucumán - Dirección de Sistemas <br />v
+        {version}
+      </p>
     </div>
   );
 };

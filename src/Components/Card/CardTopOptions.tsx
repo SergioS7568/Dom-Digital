@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
+
+import Button from "@mui/material/Button";
+import HighlightOffSharpIcon from "@mui/icons-material/HighlightOffSharp";
 
 import Grid from "../Grid/Grid";
 import CardFilter_PopUp from "./CardFilter_PopUp";
@@ -7,6 +10,7 @@ import TableDomiciliosDigitales from "../Table/TableDomiciliosDigitales";
 import { getApiFn, filterByData } from "../api/Api";
 
 import "./CardTopOptions.css";
+import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 
 export const CardTopOptions = () => {
   const [showPopupFilter, setShowPopupFilter] = useState(false);
@@ -36,11 +40,7 @@ export const CardTopOptions = () => {
   };
   const pageNumber = 0;
 
-  const {
-    data: Api,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: Api } = useQuery({
     queryKey: ["Api", itemsPerPage, pageNumber],
     queryFn: (context) => {
       const queryKey = context.queryKey as [string, number];
@@ -94,98 +94,148 @@ export const CardTopOptions = () => {
 
   return (
     <div>
-      {isLoading ? <p>No se cargo nada</p> : <p>Datos cargados</p>}
+      <Grid container className="items-center  pt-4  gap-1   ">
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={12}
+          lg={12}
+          xl={8}
+          className="flex flex-col items-center sm:items-center mdd:items-center md:items-center lg:items-start  justify-center gap-1"
+        >
+          <div>
+            <p className="font-medium text-start mdd:text-center sm:text-center text-2xl text-textCustomNaturalBlack dark:text-white m-2">
+              Listado
+            </p>
+          </div>
 
-      {isError ? <div>ERROR</div> : <div>Its working!</div>}
-      <Grid container className="items-center pt-4  gap-1">
-        <Grid item xs={12} lg={3}>
-          <Grid container className="items-center  ">
-            <Grid item xs={12} lg={12}>
-              <div></div>
-            </Grid>
-            <Grid item xs={12} lg={12}>
-              <div>
-                <p>Listado </p>
-              </div>
-            </Grid>
-            <Grid item xs={12} lg={12}>
-              <div>
-                {filterData.name ? (
-                  <button
-                    className="btn btn-square "
-                    onClick={handleEliminationNameButtonClick}
-                  >
-                    {filterData.name}
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {filterData.lastname ? (
-                  <button
-                    className="btn btn-square"
-                    onClick={handleEliminationLastNameButtonClick}
-                  >
-                    {filterData.lastname}
-                  </button>
-                ) : (
-                  <></>
-                )}
-                {filterData.profile ? (
-                  <button
-                    className="btn btn-square"
-                    onClick={handleEliminationProfileButtonClick}
-                  >
-                    {filterData.profile}
-                  </button>
-                ) : (
-                  <></>
-                )}
-              </div>
-            </Grid>
-            <Grid item xs={12} lg={12}></Grid>
-          </Grid>
+          <div className="justify-self-center flex flex-col sm:flex-col gap-1 items-center min-h-5 min-w-2 md:flex-col mdd:flex-col lg:flex-row">
+            {filterData.name ? (
+              <Button
+                className=" max-h-5 min-w-5 text-sm "
+                sx={{
+                  borderColor: "rgb(156 163 175)",
+                  "&:hover": {
+                    borderColor: "rgb(63, 117, 168)", // Optional: Change the border color on hover
+                  },
+                }}
+                endIcon={
+                  <HighlightOffSharpIcon sx={{ color: "rgb(156 163 175)" }} />
+                }
+                variant="outlined"
+                onClick={handleEliminationNameButtonClick}
+              >
+                <p className="text-sm font-medium  text-gray-600 dark:text-gray-400">
+                  Nombre: {filterData.name}
+                </p>
+              </Button>
+            ) : (
+              <></>
+            )}
+            {filterData.lastname ? (
+              <Button
+                className=" max-h-5 min-w-8   text-sm"
+                variant="outlined"
+                sx={{
+                  borderColor: "rgb(156 163 175)",
+                  "&:hover": {
+                    borderColor: "rgb(63, 117, 168)", // Optional: Change the border color on hover
+                  },
+                }}
+                endIcon={
+                  <HighlightOffSharpIcon sx={{ color: "rgb(156 163 175)" }} />
+                }
+                onClick={handleEliminationLastNameButtonClick}
+              >
+                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  Apellido: {filterData.lastname}
+                </p>
+              </Button>
+            ) : (
+              <></>
+            )}
+            {filterData.profile ? (
+              <Button
+                className=" max-h-5 min-w-8  "
+                sx={{
+                  borderColor: "rgb(156 163 175)",
+                  "&:hover": {
+                    borderColor: "rgb(63, 117, 168)", // Optional: Change the border color on hover
+                  },
+                }}
+                endIcon={
+                  <HighlightOffSharpIcon sx={{ color: "rgb(156 163 175)" }} />
+                }
+                variant="outlined"
+                onClick={handleEliminationProfileButtonClick}
+              >
+                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  Perfil: {filterData.profile}
+                </p>
+              </Button>
+            ) : (
+              <></>
+            )}
+          </div>
         </Grid>
-        <Grid item xs={1} ls={1}></Grid>
-        <Grid item xs={1} ls={1}></Grid>
-        <Grid item xs={1} ls={1}></Grid>
 
-        <Grid item xs={2} xl={1}>
-          <p className="justify-self-end">Mostrar</p>
-        </Grid>
-        <Grid item xs={2} xl={1}>
-          <div tabIndex={0} className="collapse border-cyan-700">
+        <Grid
+          item
+          xs={12}
+          lg={12}
+          xl={4}
+          className="justify-self-center flex flex-row gap-1 items-center place-items-center  "
+        >
+          <p className=" font-medium text-textCustomNaturalBlack  dark:text-white text-center">
+            Mostrar
+          </p>
+          <div>
             <select
               id="showQuantityResults"
               name="showQuantityResults"
               onChange={OnValueSelected}
-              className="select w-20 h-14"
+              className="select w-20 h-10 border-2  bg-transparent 
+              appearance-none px-3 py-2 rounded-md dark:bg-bgCustomDark black: border-btnCustomBackgroundColor
+               text-textCustomNaturalBlack dark:text-white dark:border-gray-500 "
             >
-              <option value={15}>15</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
+              <option
+                value={15}
+                className=" text-textCustomNaturalBlack dark:text-bgCustomGray  dark:bg-bgCustomDark"
+              >
+                15
+              </option>
+              <option
+                value={25}
+                className=" text-textCustomNaturalBlack dark:text-bgCustomGray"
+              >
+                25
+              </option>
+              <option
+                value={50}
+                className=" text-textCustomNaturalBlack dark:text-bgCustomGray"
+              >
+                {" "}
+                50
+              </option>
             </select>
           </div>
-        </Grid>
-        <Grid item xs={2} xl={1}>
-          <button className="btn" onClick={OnPressShowPopupFilter}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-              />
-            </svg>
+
+          <Button
+            className="btn"
+            variant="contained"
+            onClick={OnPressShowPopupFilter}
+            sx={{
+              borderColor: "rgb(156 163 175)",
+              "&:hover": {
+                borderColor: "rgb(63, 117, 168)", // Optional: Change the border color on hover
+              },
+            }}
+            startIcon={<SearchSharpIcon sx={{ color: "#fff" }} />}
+          >
             Buscar
-          </button>
+          </Button>
         </Grid>
-        <Grid item xs={3} ls={1}></Grid>
       </Grid>
 
       <TableDomiciliosDigitales

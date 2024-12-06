@@ -1,5 +1,3 @@
-import "./App.css";
-
 import RootingView from "./View/RootingView";
 
 function App() {
